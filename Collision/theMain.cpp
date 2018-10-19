@@ -191,6 +191,7 @@ int main(void)
 	sLight* pTheThirdLight = NULL;
 	sLight* pTheForthLight = NULL;
 	sLight* pTheFifthLight = NULL;
+	sLight* pTheSixthLight = NULL;
 
 
 	{
@@ -209,11 +210,11 @@ int main(void)
 
 
 	{
-		pTheFifthLight = new sLight();
-		pTheFifthLight->position = glm::vec4(-39.0f, 450.0f, -1510.0f, 1.0f);
+		pTheFifthLight = new sLight();//-29 450 -3660
+		pTheFifthLight->position = glm::vec4(-204.0f, 165.0f, -3750.0f, 1.0f);
 		pTheFifthLight->atten.x = 0.0f;	// 			float constAtten = 0.0f;
-		pTheFifthLight->atten.y = 0.00005f;	//			float linearAtten = 0.01f;
-		pTheFifthLight->atten.z = 0.00000545f;	//			float quadAtten = 0.001f;
+		pTheFifthLight->atten.y = 0.000004f;	//			float linearAtten = 0.01f;
+		pTheFifthLight->atten.z = 0.000002f;	//			float quadAtten = 0.001f;
 		pTheFifthLight->diffuse = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);// White light
 		pTheFifthLight->param2.x = 1.0f;
 		pTheFifthLight->lightName = "MainLight2";
@@ -221,6 +222,20 @@ int main(void)
 		LightManager->LoadUniformLocations(program);
 	}
 
+
+
+	{
+		pTheSixthLight = new sLight();//-29 450 -3660
+		pTheSixthLight->position = glm::vec4(-124.0f, 2870.0f, -1465.0f, 1.0f);
+		pTheSixthLight->atten.x = 0.0f;	// 			float constAtten = 0.0f;
+		pTheSixthLight->atten.y = 0.0004934f;	//			float linearAtten = 0.01f;
+		pTheSixthLight->atten.z = 0.00000077f;	//			float quadAtten = 0.001f;
+		pTheSixthLight->diffuse = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);// White light
+		pTheSixthLight->param2.x = 1.0f;
+		pTheSixthLight->lightName = "MainLight3";
+		LightManager->vecLights.push_back(pTheSixthLight);
+		LightManager->LoadUniformLocations(program);
+	}
 
 	{
 

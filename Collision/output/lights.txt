@@ -1,11 +1,11 @@
 Name MainLight
-Position_xyz -44 400 0
-Attenuation_xyz 0 0.0001 1e-05
+Position_xyz -124 2870 -1465
+Attenuation_xyz 0 0.0004934 7.74642e-08
 Diffuse_rgbw 1 1 1 1
 on_off 1
 Name MainLight2
-Position_xyz -39 450 -1510
-Attenuation_xyz 0 5.13342e-05 5.45103e-06
+Position_xyz -184 165 -3750
+Attenuation_xyz 0 4e-06 2e-06
 Diffuse_rgbw 1 1 1 1
 on_off 1
 Name pTheRedLight
@@ -19,7 +19,7 @@ Attenuation_xyz 0 0.01 0.0001
 Diffuse_rgbw 0 1 0 1
 on_off 1
 Name pTheThirdLight
-Position_xyz 60 70 0
+Position_xyz 75 70 0
 Attenuation_xyz 0 0.01 0.0001
 Diffuse_rgbw 0 0 1 1
 on_off 1

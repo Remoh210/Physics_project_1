@@ -28,6 +28,19 @@ void LoadModelTypes( cVAOMeshManager* pTheVAOMeshManager, GLuint shaderProgramID
 	teapotInfo.meshFileName = "Utah_Teapot_xyz_n.ply";			// "Utah_Teapot_xyz.ply";
 	pTheVAOMeshManager->LoadModelIntoVAO(teapotInfo, shaderProgramID);
 
+
+	sModelDrawInfo cube_flat_verticalInfo;
+	cube_flat_verticalInfo.meshFileName = "cube_flat_vertical.ply";			// "Utah_Teapot_xyz.ply";
+	pTheVAOMeshManager->LoadModelIntoVAO(cube_flat_verticalInfo, shaderProgramID);
+
+	sModelDrawInfo cube_flat_vertical_vInfo;
+	cube_flat_vertical_vInfo.meshFileName = "cube_flat_vertical_v.ply";			// "Utah_Teapot_xyz.ply";
+	pTheVAOMeshManager->LoadModelIntoVAO(cube_flat_vertical_vInfo, shaderProgramID);
+	
+	sModelDrawInfo cube_flat_horizontalInfo;
+	cube_flat_horizontalInfo.meshFileName = "cube_flat_horizontal.ply";			// "Utah_Teapot_xyz.ply";
+	pTheVAOMeshManager->LoadModelIntoVAO(cube_flat_horizontalInfo, shaderProgramID);
+
 	sModelDrawInfo terrainInfo;
 	terrainInfo.meshFileName = "MeshLab_Fractal_Terrain_xyz_n.ply";	// "MeshLab_Fractal_Terrain_xyz.ply";
 	// Will alow me to update the vertex data in the mesh
@@ -95,7 +108,7 @@ void LoadModelsIntoScene( std::vector<cMeshObject*> &vec_pObjectsToDraw )
 	{
 		sMesh* pTerTri = new sMesh();
 		cMeshObject* pTer = new cMeshObject();
-		pTer->position = glm::vec3(20.0f, -100.0f, 250.0f);
+		pTer->position = glm::vec3(-200.0f, -230.0f, 190.0f);
 		pTer->pTheShape = pTerTri;
 		//pSpider->postRotation = glm::vec3(0.0f, glm::radians(-20.0f), 0.0f);
 		pTer->objColour = glm::vec3(0.5f, 0.5f, 1.0f);
@@ -131,26 +144,151 @@ void LoadModelsIntoScene( std::vector<cMeshObject*> &vec_pObjectsToDraw )
 
 
 	{
-		sAABB* RoomPhysicsBox = new sAABB();
+		//sAABB* RoomPhysicsBox = new sAABB();
 		cMeshObject* pRoomBox = new cMeshObject();
 		pRoomBox->position = glm::vec3(0.0f, 0.0f, -3500.0f);
 		//pSpider->postRotation = glm::vec3(0.0f, glm::radians(-20.0f), 0.0f);
 		pRoomBox->objColour = glm::vec3(0.85f, 0.86f, 1.0f);
 		pRoomBox->friendlyName = "Room_AABB_Collision";
 		pRoomBox->meshName = "room.ply";
-		pRoomBox->shapeType = cMeshObject::AABB;
-		RoomPhysicsBox->sizeXYZ = glm::vec3(780.0f, 332.0f, 780.0f);
+		//pRoomBox->shapeType = cMeshObject::AABB;
+		//RoomPhysicsBox->sizeXYZ = glm::vec3(780.0f, 332.0f, 780.0f);
 
 		//RoomPhysicsBox->maxXYZ = glm::vec3(593.0f, 545.7f, 543.8f) + pRoomBox->position;
 		//RoomPhysicsBox->minXYZ = glm::vec3(-9571.0f, -87.7f, -1000.8f) + pRoomBox->position;
 		
-		pRoomBox->pTheShape = RoomPhysicsBox;
-		pRoomBox->bIsUpdatedByPhysics = true;
+		//pRoomBox->pTheShape = RoomPhysicsBox;
+		pRoomBox->bIsUpdatedByPhysics = false;
 		//spRoom->setUniformScale(50.0f);
-		pRoomBox->bIsVisible = true;
-		vec_pObjectsToDraw.push_back(pRoomBox);
+		pRoomBox->bIsVisible = false;
+		//vec_pObjectsToDraw.push_back(pRoomBox);
 	}
 
+
+	{
+		sAABB* cubeFlatPh1 = new sAABB();
+		cMeshObject* pCubeFlat1 = new cMeshObject();//-945 160 -3770
+		pCubeFlat1->position = glm::vec3(-945.0f, 160.0f, -3770.0);
+		pCubeFlat1->pTheShape = cubeFlatPh1;
+		//pSpider->postRotation = glm::vec3(0.0f, glm::radians(-20.0f), 0.0f);
+		pCubeFlat1->objColour = glm::vec3(0.5f, 0.5f, 1.0f);
+		pCubeFlat1->friendlyName = "flatCube1";
+		pCubeFlat1->bIsUpdatedByPhysics = true;
+		pCubeFlat1->bIsWireFrame = false;
+		pCubeFlat1->meshName = "cube_flat_vertical.ply";
+		pCubeFlat1->bDontLight = false;
+		pCubeFlat1->bIsUpdatedByPhysics = true;
+		cubeFlatPh1->sizeXYZ = glm::vec3(100.0f, 800.0f, 800.0f);
+		pCubeFlat1->shapeType = cMeshObject::AABB;
+		//pCube->setUniformScale(50.0f);
+		pCubeFlat1->bIsVisible = true;
+		vec_pObjectsToDraw.push_back(pCubeFlat1);
+	}
+
+
+
+	{
+		sAABB* cubeFlatPh2 = new sAABB();
+		cMeshObject* pCubeFlat2 = new cMeshObject();//-945 160 -3770
+		pCubeFlat2->position = glm::vec3(565.0f, 160.0f, -3770.0);
+		pCubeFlat2->pTheShape = cubeFlatPh2;
+		//pSpider->postRotation = glm::vec3(0.0f, glm::radians(-20.0f), 0.0f);
+		pCubeFlat2->objColour = glm::vec3(0.5f, 0.5f, 1.0f);
+		pCubeFlat2->friendlyName = "flatCube2";
+		pCubeFlat2->bIsUpdatedByPhysics = true;
+		pCubeFlat2->bIsWireFrame = false;
+		pCubeFlat2->meshName = "cube_flat_vertical.ply";
+		pCubeFlat2->bDontLight = false;
+		pCubeFlat2->bIsUpdatedByPhysics = true;
+		cubeFlatPh2->sizeXYZ = glm::vec3(100.0f, 800.0f, 800.0f);
+		pCubeFlat2->shapeType = cMeshObject::AABB;
+		//pCube->setUniformScale(50.0f);
+		pCubeFlat2->bIsVisible = true;
+		vec_pObjectsToDraw.push_back(pCubeFlat2);
+	}
+
+	{
+		sAABB* cubeFlatV_ph = new sAABB();
+		cMeshObject* cubeFlatV = new cMeshObject();//-945 160 -3770
+		cubeFlatV->position = glm::vec3(-225.0f, 100.0f, -3000.0f);
+		cubeFlatV->pTheShape = cubeFlatV_ph;
+		//pSpider->postRotation = glm::vec3(0.0f, glm::radians(-20.0f), 0.0f);
+		cubeFlatV->objColour = glm::vec3(0.5f, 0.5f, 1.0f);
+		cubeFlatV->friendlyName = "flatCube_v";
+		cubeFlatV->bIsUpdatedByPhysics = true;
+		cubeFlatV->bIsWireFrame = false;
+		cubeFlatV->meshName = "cube_flat_vertical_v.ply";
+		cubeFlatV->bDontLight = false;
+		cubeFlatV->bIsUpdatedByPhysics = true;
+		cubeFlatV_ph->sizeXYZ = glm::vec3(800.0f, 800.0f, 100.0f);
+		cubeFlatV->shapeType = cMeshObject::AABB;
+		//pCube->setUniformScale(50.0f);
+		cubeFlatV->bIsVisible = true;
+		vec_pObjectsToDraw.push_back(cubeFlatV);
+	}
+
+
+	{
+		sAABB* cubeFlatV_ph2 = new sAABB();
+		cMeshObject* cubeFlatV2 = new cMeshObject();//-165 180 -4470
+		cubeFlatV2->position = glm::vec3(-165.0f, 180.0f, -4470.0f);
+		cubeFlatV2->pTheShape = cubeFlatV_ph2;
+		//pSpider->postRotation = glm::vec3(0.0f, glm::radians(-20.0f), 0.0f);
+		cubeFlatV2->objColour = glm::vec3(0.5f, 0.5f, 1.0f);
+		cubeFlatV2->friendlyName = "flatCube_v";
+		cubeFlatV2->bIsUpdatedByPhysics = true;
+		cubeFlatV2->bIsWireFrame = false;
+		cubeFlatV2->meshName = "cube_flat_vertical_v.ply";
+		cubeFlatV2->bDontLight = false;
+		cubeFlatV2->bIsUpdatedByPhysics = true;
+		cubeFlatV_ph2->sizeXYZ = glm::vec3(800.0f, 800.0f, 100.0f);
+		cubeFlatV2->shapeType = cMeshObject::AABB;
+		//pCube->setUniformScale(50.0f);
+		cubeFlatV2->bIsVisible = true;
+		vec_pObjectsToDraw.push_back(cubeFlatV2);
+	}
+
+
+	{
+		sAABB* cubeFlatPh3 = new sAABB();
+		cMeshObject* pCubeFlat3 = new cMeshObject();//-945 160 -3770
+		pCubeFlat3->position = glm::vec3(-150.0f, 900.0f, -3770.0);
+		pCubeFlat3->pTheShape = cubeFlatPh3;
+		//pSpider->postRotation = glm::vec3(0.0f, glm::radians(-20.0f), 0.0f);
+		pCubeFlat3->objColour = glm::vec3(0.5f, 0.5f, 1.0f);
+		pCubeFlat3->friendlyName = "flatCube3_horizontal";
+		pCubeFlat3->bIsUpdatedByPhysics = true;
+		pCubeFlat3->bIsWireFrame = false;
+		pCubeFlat3->meshName = "cube_flat_horizontal.ply";
+		pCubeFlat3->bDontLight = false;
+		pCubeFlat3->bIsUpdatedByPhysics = true;
+		cubeFlatPh3->sizeXYZ = glm::vec3(800.0f, 100.0f, 800.0f);
+		pCubeFlat3->shapeType = cMeshObject::AABB;
+		//pCube->setUniformScale(50.0f);
+		pCubeFlat3->bIsVisible = true;
+		vec_pObjectsToDraw.push_back(pCubeFlat3);
+	}
+
+
+	{
+		sAABB* cubeFlatPh4 = new sAABB();
+		cMeshObject* pCubeFlat4 = new cMeshObject();//-945 160 -3770
+		pCubeFlat4->position = glm::vec3(-150.0f, -600.0f, -3770.0);
+		pCubeFlat4->pTheShape = cubeFlatPh4;
+		//pSpider->postRotation = glm::vec3(0.0f, glm::radians(-20.0f), 0.0f);
+		pCubeFlat4->objColour = glm::vec3(0.5f, 0.5f, 1.0f);
+		pCubeFlat4->friendlyName = "flatCube3_horizontal2";
+		pCubeFlat4->bIsUpdatedByPhysics = true;
+		pCubeFlat4->bIsWireFrame = false;
+		pCubeFlat4->meshName = "cube_flat_horizontal.ply";
+		pCubeFlat4->bDontLight = false;
+		pCubeFlat4->bIsUpdatedByPhysics = true;
+		cubeFlatPh4->sizeXYZ = glm::vec3(800.0f, 100.0f, 800.0f);
+		pCubeFlat4->shapeType = cMeshObject::AABB;
+		//pCube->setUniformScale(50.0f);
+		pCubeFlat4->bIsVisible = true;
+		vec_pObjectsToDraw.push_back(pCubeFlat4);
+	}
 
 
 	//cMeshObject* pRogerRabbit = NULL;

@@ -9,7 +9,7 @@ typedef glm::vec3 Point;
 typedef glm::vec3 Vector;
 
 const float GROUND_PLANE_Y = -3.0f;			// Lowest the objects can go
-const float ROOF_Y = 250.0f;
+const float ROOF_Y = 350.0f;
 const float LIMIT_POS_X =  300.0f;			// Lowest the objects can go
 const float LIMIT_NEG_X = -100.0f;			// Lowest the objects can go
 const float LIMIT_POS_Z =  300.0f;			// Lowest the objects can go
@@ -261,6 +261,7 @@ void DoPhysicsUpdate( double fDeltaTime,
 							if (SphereBoxCollision(pObjectA, pObjectB))
 							{
 								std::cout << "smth" << std::endl;
+								pObjectA->velocity = -pObjectA->velocity;
 							 g_pDebugRenderer->addLine(pObjectA->position, pObjectB->position, glm::vec3(1.0f, 1.0f, 0.0f), 3.0f);
 							}
 						}

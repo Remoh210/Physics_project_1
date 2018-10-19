@@ -6,7 +6,7 @@ Scale  1 1 1
 Colour  0.5 0.5 1
 Friendly_Name Terrain
 Mesh_Name MeshLab_Fractal_Terrain_xyz_n.ply
-Position 20 -100 250
+Position -200 -230 190
 Rotation 0 0 0
 Scale  1 1 1
 Colour  0.5 0.5 1
@@ -16,12 +16,42 @@ Position 0 0 300
 Rotation 0 0 0
 Scale  1 1 1
 Colour  0.74 0.86 1
-Friendly_Name Room_AABB_Collision
-Mesh_Name room.ply
-Position 0 0 -3500
+Friendly_Name flatCube1
+Mesh_Name cube_flat_vertical.ply
+Position -945 160 -3770
 Rotation 0 0 0
 Scale  1 1 1
-Colour  0.85 0.86 1
+Colour  0.5 0.5 1
+Friendly_Name flatCube2
+Mesh_Name cube_flat_vertical.ply
+Position 565 160 -3770
+Rotation 0 0 0
+Scale  1 1 1
+Colour  0.5 0.5 1
+Friendly_Name flatCube_v
+Mesh_Name cube_flat_vertical_v.ply
+Position -225 100 -3000
+Rotation 0 0 0
+Scale  1 1 1
+Colour  0.5 0.5 1
+Friendly_Name flatCube_v
+Mesh_Name cube_flat_vertical_v.ply
+Position -165 180 -4470
+Rotation 0 0 0
+Scale  1 1 1
+Colour  0.5 0.5 1
+Friendly_Name flatCube3_horizontal
+Mesh_Name cube_flat_horizontal.ply
+Position -150 900 -3770
+Rotation 0 0 0
+Scale  1 1 1
+Colour  0.5 0.5 1
+Friendly_Name flatCube3_horizontal2
+Mesh_Name cube_flat_horizontal.ply
+Position -150 -600 -3770
+Rotation 0 0 0
+Scale  1 1 1
+Colour  0.5 0.5 1
 Friendly_Name bouncyBall0
 Mesh_Name Sphere_320_faces_xyz_n.ply
 Position -20.127 146.752 613.111

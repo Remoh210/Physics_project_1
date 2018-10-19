@@ -1,12 +1,12 @@
 Friendly_Name CubeTriangles
 Mesh_Name cube.ply
-Position -185 0 0
+Position -170 0 0
 Rotation 0 0 0
 Scale  1 1 1
 Colour  0.5 0.5 1
 Friendly_Name Terrain
 Mesh_Name MeshLab_Fractal_Terrain_xyz_n.ply
-Position 20 -100 250
+Position -200 -230 190
 Rotation 0 0 0
 Scale  1 1 1
 Colour  0.5 0.5 1
@@ -16,69 +16,99 @@ Position 0 0 300
 Rotation 0 0 0
 Scale  1 1 1
 Colour  0.74 0.86 1
-Friendly_Name Room_AABB_Collision
-Mesh_Name room.ply
-Position 0 0 -1500
+Friendly_Name flatCube1
+Mesh_Name cube_flat_vertical.ply
+Position -945 160 -3770
 Rotation 0 0 0
 Scale  1 1 1
-Colour  0.85 0.86 1
+Colour  0.5 0.5 1
+Friendly_Name flatCube2
+Mesh_Name cube_flat_vertical.ply
+Position 565 160 -3770
+Rotation 0 0 0
+Scale  1 1 1
+Colour  0.5 0.5 1
+Friendly_Name flatCube_v
+Mesh_Name cube_flat_vertical_v.ply
+Position -225 100 -3000
+Rotation 0 0 0
+Scale  1 1 1
+Colour  0.5 0.5 1
+Friendly_Name flatCube_v
+Mesh_Name cube_flat_vertical_v.ply
+Position -165 180 -4470
+Rotation 0 0 0
+Scale  1 1 1
+Colour  0.5 0.5 1
+Friendly_Name flatCube3_horizontal
+Mesh_Name cube_flat_horizontal.ply
+Position -150 900 -3770
+Rotation 0 0 0
+Scale  1 1 1
+Colour  0.5 0.5 1
+Friendly_Name flatCube3_horizontal2
+Mesh_Name cube_flat_horizontal.ply
+Position -150 -600 -3770
+Rotation 0 0 0
+Scale  1 1 1
+Colour  0.5 0.5 1
 Friendly_Name bouncyBall0
 Mesh_Name Sphere_320_faces_xyz_n.ply
-Position -3755.91 -5538.46 8214.31
+Position -2207.83 -37771.5 20035.4
 Rotation 0 0 0
 Scale  40 40 40
 Colour  0.193304 0.563585 0.00125126
 Friendly_Name bouncyBall1
 Mesh_Name Sphere_320_faces_xyz_n.ply
-Position 444.603 65.3259 495.43
+Position -644.354 320.704 -248.46
 Rotation 0 0 0
 Scale  40 40 40
 Colour  0.858943 0.174108 0.746605
 Friendly_Name bouncyBall2
 Mesh_Name Sphere_320_faces_xyz_n.ply
-Position 5106.63 -14597.6 -5520.02
+Position 3048.15 -20573.1 8525.21
 Rotation 0 0 0
 Scale  40 40 40
 Colour  0.988525 0.165899 0.147313
 Friendly_Name bouncyBall3
 Mesh_Name Sphere_320_faces_xyz_n.ply
-Position 1227.41 -19754 -11467.9
+Position -1302.34 -544.66 2079.26
 Rotation 0 0 0
 Scale  40 40 40
 Colour  0.607166 0.601764 0.571184
 Friendly_Name bouncyBall4
 Mesh_Name Sphere_320_faces_xyz_n.ply
-Position 5935.54 -41867.7 -1014.92
+Position 6703.97 -49406.1 -9529.75
 Rotation 0 0 0
 Scale  40 40 40
 Colour  0.519883 0.802606 0.783319
 Friendly_Name bouncyBall5
 Mesh_Name Sphere_320_faces_xyz_n.ply
-Position 32702.5 -34846.4 7612.88
+Position 756.787 -34754.9 -25405.8
 Rotation 0 0 0
 Scale  40 40 40
 Colour  0.235328 0.462081 0.142338
 Friendly_Name bouncyBall6
 Mesh_Name Sphere_320_faces_xyz_n.ply
-Position 3609.67 -3849.06 -3802.79
+Position -107.173 188.574 16.2075
 Rotation 0 0 0
 Scale  40 40 40
 Colour  0.266213 0.392438 0.611499
 Friendly_Name bouncyBall7
 Mesh_Name Sphere_320_faces_xyz_n.ply
-Position -2624.34 -44443.7 -5414.48
+Position -19786.5 -22884.6 -13451.6
 Rotation 0 0 0
 Scale  40 40 40
 Colour  0.91879 0.00878933 0.0562151
 Friendly_Name bouncyBall8
 Mesh_Name Sphere_320_faces_xyz_n.ply
-Position -7317.5 -11898.4 -1812.66
+Position 6038.72 -12037.7 10034.3
 Rotation 0 0 0
 Scale  40 40 40
 Colour  0.743736 0.205359 0.484939
 Friendly_Name bouncyBall9
 Mesh_Name Sphere_320_faces_xyz_n.ply
-Position 16814.4 -36513.5 4673.64
+Position 3156.16 -14336.6 5302.49
 Rotation 0 0 0
 Scale  40 40 40
 Colour  0.608966 0.735008 0.385235
@@ -90,31 +120,31 @@ Scale  40 40 40
 Colour  0.751549 0.98999 0.517106
 Friendly_Name bouncyBall11
 Mesh_Name Sphere_320_faces_xyz_n.ply
-Position -2302.86 -1108.27 -1383.88
+Position -830.638 138.836 134.836
 Rotation 0 0 0
 Scale  40 40 40
 Colour  0.949583 0.147496 0.504807
 Friendly_Name bouncyBall12
 Mesh_Name Sphere_320_faces_xyz_n.ply
-Position -7068.28 -20704.3 11743
+Position -10751.9 -17072.4 -6206.36
 Rotation 0 0 0
 Scale  40 40 40
 Colour  0.153233 0.683187 0.966613
 Friendly_Name bouncyBall13
 Mesh_Name Sphere_320_faces_xyz_n.ply
-Position 13255.9 -32175.7 12538.6
+Position -423.756 87.5083 272.338
 Rotation 0 0 0
 Scale  40 40 40
 Colour  0.503922 0.155553 0.475265
 Friendly_Name bouncyBall14
 Mesh_Name Sphere_320_faces_xyz_n.ply
-Position -4405.71 -28745.1 -11364.5
+Position 11502.7 -21440.8 -7118.36
 Rotation 0 0 0
 Scale  40 40 40
 Colour  0.12302 0.475295 0.721915
 Friendly_Name AttenSphere
 Mesh_Name Sphere_320_faces_xyz_n.ply
-Position -39 450 -1510
+Position 150 0 0
 Rotation 0 0 0
 Scale  30 30 30
 Colour  0 1 0
@@ -126,7 +156,7 @@ Scale  30 30 30
 Colour  0 1 0
 Friendly_Name shootBall
 Mesh_Name Sphere_320_faces_xyz_n.ply
-Position -1069.73 49.7045 -77.6418
+Position 294.56 -19.3832 0.440524
 Rotation 0 0 0
 Scale  60 60 60
 Colour  1 0.411765 0.705882
