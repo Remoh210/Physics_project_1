@@ -229,7 +229,7 @@ int main(void)
 		pTheSixthLight->position = glm::vec4(-124.0f, 2870.0f, -1465.0f, 1.0f);
 		pTheSixthLight->atten.x = 0.0f;	// 			float constAtten = 0.0f;
 		pTheSixthLight->atten.y = 0.0004934f;	//			float linearAtten = 0.01f;
-		pTheSixthLight->atten.z = 0.00000077f;	//			float quadAtten = 0.001f;
+		pTheSixthLight->atten.z = 0.000000037f;	//			float quadAtten = 0.001f;
 		pTheSixthLight->diffuse = glm::vec4(1.0f, 1.0f, 1.0f, 1.0f);// White light
 		pTheSixthLight->param2.x = 1.0f;
 		pTheSixthLight->lightName = "MainLight3";

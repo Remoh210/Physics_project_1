@@ -86,6 +86,9 @@ public:
 	
 	bool bIsUpdatedByPhysics;	// Phsyics "owns" the position	
 
+	glm::vec3 initial_position;
+	glm::vec3 initia_vel;
+	bool bRandomGenObj;
 	float mass;
 	float inverseMass;
 

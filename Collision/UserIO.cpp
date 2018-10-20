@@ -81,7 +81,7 @@ void key_callback( GLFWwindow* window,
 			lightIndex = lightIndex + 1;
 		}
 		else { lightIndex = 0; }
-		std::cout << "Model " << vec_pObjectsToDraw.at(index)->meshName << "is Chosen" << std::endl;
+		std::cout << "light " << LightManager->vecLights.at(lightIndex)->lightName << "is Chosen" << std::endl;
 	}
 
 
@@ -212,7 +212,7 @@ bool AreAllModifiersUp(GLFWwindow* window)
 void ProcessAsynKeys(GLFWwindow* window)
 {
 	const float CAMERA_SPEED_SLOW = 5.0f;
-	const float CAMERA_SPEED_FAST = 10.0f;
+	const float CAMERA_SPEED_FAST = 20.0f;
 
 	// WASD + q = "up", e = down		y axis = up and down
 	//									x axis = left and right
@@ -335,22 +335,3 @@ void ProcessAsynKeys(GLFWwindow* window)
 	return;
 }
 
-
-
-cMeshObject* CloseToObj(std::vector<cMeshObject*> models)
-{
-	for (std::vector<cMeshObject*>::iterator it = models.begin(); it != models.end(); ++it)
-	{
-		cMeshObject* CurModel = *it;
-		float distance = glm::distance(CurModel->position, g_CameraEye);
-		//std::cout << distance << std::endl;
-		//glm::vec3 pos = CurModel->position;
-		if (distance < 80.0f)
-		{
-			std::cout << CurModel->meshName << std::endl;
-			return CurModel;
-		}
-		//else { std::cout << "nothing" << std::endl; }
-	}
-	//return false;
-}

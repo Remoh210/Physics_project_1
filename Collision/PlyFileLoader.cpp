@@ -171,6 +171,7 @@ void saveModelInfo(std::string filename, std::vector<cMeshObject*> models)
 			file << "Position " << CurModel->position.x << " " << CurModel->position.y << " " << CurModel->position.z << "\n";
 			file << "Rotation " << CurModel->postRotation.x << " " << CurModel->postRotation.y << " " << CurModel->postRotation.z << "\n";
 			file << "Scale  " << CurModel->nonUniformScale.x << " " << CurModel->nonUniformScale.y << " " << CurModel->nonUniformScale.z << "\n";
+			file << "Velocity  " << CurModel->velocity.x << " " << CurModel->velocity.y << " " << CurModel->velocity.z << "\n";
 			file << "Colour  " << CurModel->objColour.x << " " << CurModel->objColour.y << " " << CurModel->objColour.z << "\n";
 			//pTeapot->meshName = "Utah_Teapot_xyz_n.ply";
 			//pTeapot->setUniformScale(0.4f);
@@ -221,6 +222,7 @@ void loadModels(std::string filename, std::vector<cMeshObject*> models)
 		file >> unused >> CurModel->position.x >> CurModel->position.y >> CurModel->position.z;
 		file >> unused >> CurModel->postRotation.x >> CurModel->postRotation.y >> CurModel->postRotation.z;
 		file >> unused >> CurModel->nonUniformScale.x >> CurModel->nonUniformScale.y >> CurModel->nonUniformScale.z;
+		file >> unused >> CurModel->velocity.x >> CurModel->velocity.y >> CurModel->velocity.z;
 		file >> unused >> CurModel->objColour.x >> CurModel->objColour.y >> CurModel->objColour.z;
 	}
 	file.close();

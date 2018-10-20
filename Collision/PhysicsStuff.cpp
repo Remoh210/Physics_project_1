@@ -48,7 +48,7 @@ void DoPhysicsUpdate( double fDeltaTime,
 	float deltaTime = static_cast<float>(fDeltaTime);
 
 	// Make sure it's not tooooooo big
-	const float LARGEST_DELTATIME = 0.10f;			// 10 ms = 10 Hz
+	const float LARGEST_DELTATIME = 1.20f;			// 10 ms = 10 Hz
 
 	if ( deltaTime > LARGEST_DELTATIME )
 	{
@@ -72,6 +72,23 @@ void DoPhysicsUpdate( double fDeltaTime,
 			pCurMesh->position.x = pCurMesh->position.x + ( pCurMesh->velocity.x * deltaTime );
 			pCurMesh->position.y = pCurMesh->position.y + ( pCurMesh->velocity.y * deltaTime );
 			pCurMesh->position.z = pCurMesh->position.z + ( pCurMesh->velocity.z * deltaTime );
+			
+
+
+			//initial_position
+
+			if (pCurMesh->bRandomGenObj && (glm::distance(pCurMesh->position, pCurMesh->initial_position) > 1000.0f))
+			{
+				pCurMesh->position = pCurMesh->initial_position;
+				pCurMesh->velocity = glm::vec3(getRandBetween0and1<float>() * 200.0f - 5.0f,
+					getRandBetween0and1<float>() * 200.0f - 5.0f,
+					getRandBetween0and1<float>() * 200.0f - 5.0f);
+
+
+				pCurMesh->objColour = glm::vec3(getRandBetween0and1<float>() * 1.0f - 0.0f,
+					getRandBetween0and1<float>() * 1.0f - 0.0f,
+					getRandBetween0and1<float>() * 1.0f - 0.0f);
+			}
 
 
 			//if ( pCurMesh->position.y  <= GROUND_PLANE_Y )
@@ -86,17 +103,17 @@ void DoPhysicsUpdate( double fDeltaTime,
 			//	pCurMesh->velocity = newVel;
 			//}
 
-				if ( pCurMesh->position.y  >= ROOF_Y)
-			{
+			//	if ( pCurMesh->position.y  >= ROOF_Y)
+			//{
 
-				glm::vec3 normalToGround = glm::vec3( 0.0f, -1.0f, 0.0f );
+			//	glm::vec3 normalToGround = glm::vec3( 0.0f, -1.0f, 0.0f );
 
 
 
-				glm::vec3 newVel = glm::reflect( pCurMesh->velocity, normalToGround );
+			//	glm::vec3 newVel = glm::reflect( pCurMesh->velocity, normalToGround );
 
-				pCurMesh->velocity = newVel;
-			}
+			//	pCurMesh->velocity = newVel;
+			//}
 
 			//if ( pCurMesh->position.x >= LIMIT_POS_X )
 			//{
@@ -175,17 +192,37 @@ void DoPhysicsUpdate( double fDeltaTime,
 						
 						if ( (pObjectA->shapeType == cMeshObject::SPHERE) && (pObjectB->shapeType == cMeshObject::SPHERE) )
 						{
+							sSphere* sphA = (sSphere*)(pObjectA->pTheShape);
+							sSphere* sphB = (sSphere*)(pObjectA->pTheShape);
 							if (AreSpheresPenetrating(pObjectA, pObjectB))
 							{
-									glm::vec3 AnewVel = glm::reflect(pObjectA->velocity, glm::normalize(pObjectB->velocity));
-									glm::vec3 BnewVel = glm::reflect(pObjectB->velocity, glm::normalize(pObjectA->velocity));
-									
 
-									pObjectA->velocity = AnewVel;
-									pObjectB->velocity = BnewVel;
+								if (glm::length(pObjectA->velocity) < 0.01f)
+								{
+									pObjectA->velocity = pObjectB->velocity;
+									pObjectB->velocity = -pObjectB->velocity;
+								}
+								else if (glm::length(pObjectB->velocity) < 0.01f)
+								{
+									pObjectB->velocity = pObjectA->velocity;
+									pObjectA->velocity = -pObjectA->velocity;
+								}
+								else if(glm::distance(pObjectA->position, pObjectB->position) + (sphA->radius + sphB->radius) > 20.0f)
+								{
+									//glm::vec3 AnewVel = glm::reflect(pObjectA->velocity, glm::normalize(pObjectB->velocity));
+									//glm::vec3 BnewVel = glm::reflect(pObjectB->velocity, glm::normalize(pObjectA->velocity));
+									
+									
+									//pObjectA->velocity = AnewVel;
+									//pObjectB->velocity = BnewVel;
+									
+									pObjectA->objColour = pObjectB->objColour;
+
+
+									//pObjectB->objColour = pObjectA->objColour;
 									//pObjectA->velocity += pObjectB->velocity * 0.5f;
 									//pObjectB->velocity -= pObjectA->velocity * 0.5f;
-
+								}
 							}
 						}
 
@@ -217,15 +254,15 @@ void DoPhysicsUpdate( double fDeltaTime,
 
 										glm::vec3 vert1 = glm::vec3(modelInfo.pVerticesFromFile[modelInfo.pTriangles[minTriangleIndex].vertex_index_1].x,
 											modelInfo.pVerticesFromFile[modelInfo.pTriangles[minTriangleIndex].vertex_index_1].y,
-											modelInfo.pVerticesFromFile[modelInfo.pTriangles[minTriangleIndex].vertex_index_1].z);
+											modelInfo.pVerticesFromFile[modelInfo.pTriangles[minTriangleIndex].vertex_index_1].z) + pObjectB->position;
 										glm::vec3 vert2 = glm::vec3(
 											 modelInfo.pVerticesFromFile[modelInfo.pTriangles[minTriangleIndex].vertex_index_2].x,
 											 modelInfo.pVerticesFromFile[modelInfo.pTriangles[minTriangleIndex].vertex_index_2].y,
-											 modelInfo.pVerticesFromFile[modelInfo.pTriangles[minTriangleIndex].vertex_index_2].z);
+											 modelInfo.pVerticesFromFile[modelInfo.pTriangles[minTriangleIndex].vertex_index_2].z) + pObjectB->position;
 										glm::vec3 vert3 = glm::vec3(
 											 modelInfo.pVerticesFromFile[modelInfo.pTriangles[minTriangleIndex].vertex_index_3].x,
 											 modelInfo.pVerticesFromFile[modelInfo.pTriangles[minTriangleIndex].vertex_index_3].y,
-											 modelInfo.pVerticesFromFile[modelInfo.pTriangles[minTriangleIndex].vertex_index_3].z);
+											 modelInfo.pVerticesFromFile[modelInfo.pTriangles[minTriangleIndex].vertex_index_3].z) + pObjectB->position;
 
 
 										glm::vec3 normal = glm::cross(
@@ -238,14 +275,16 @@ void DoPhysicsUpdate( double fDeltaTime,
 										glm::vec3 newVel = glm::reflect(pObjectA->velocity, normal);
 
 										pObjectA->velocity = newVel;
-
-										//::g_pDebugRenderer->addLine(pObjectA->position, vert1,
-										//	glm::vec3(1.0f, 1.0f, 0.0f),
-										//	4.0f /*show for 2 seconds*/);
-
-
-										//std::cout << "HereWeAre" << std::endl;
-										//std::cout <<  normal.x << std::endl;
+										//if (pObjectA->friendlyName == "shootBall") {
+										//	::g_pDebugRenderer->addLine(pObjectA->position, -normal*10.0f ,
+										//		glm::vec3(1.0f, 1.0f, 0.0f),
+										//		4.0f /*show for 2 seconds*/);
+										//	//pObjectA->velocity = glm::vec3(0.0f);
+										//	std::cout << normal.x <<" " << normal.y <<" " << normal.z << std::endl;
+										//	
+										//}
+										
+										
 										//std::cout <<  normal.y << std::endl;
 										//std::cout <<  normal.z << std::endl;
 

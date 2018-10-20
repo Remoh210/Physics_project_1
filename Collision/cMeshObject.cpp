@@ -19,7 +19,8 @@ cMeshObject::cMeshObject()
 	this->bUseVertexColour = false;
 
 	this->bDontLight = false;
-
+	this->initial_position = glm::vec3(0.0f);
+	this->bRandomGenObj = false;
 	this->velocity = glm::vec3(0.0f);
 	this->accel = glm::vec3(0.0f);
 	this->bIsUpdatedByPhysics = false;	// physics ignores by default

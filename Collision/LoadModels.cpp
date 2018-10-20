@@ -28,6 +28,9 @@ void LoadModelTypes( cVAOMeshManager* pTheVAOMeshManager, GLuint shaderProgramID
 	teapotInfo.meshFileName = "Utah_Teapot_xyz_n.ply";			// "Utah_Teapot_xyz.ply";
 	pTheVAOMeshManager->LoadModelIntoVAO(teapotInfo, shaderProgramID);
 
+	sModelDrawInfo roofInfo;
+	roofInfo.meshFileName = "roof.ply";			// "Utah_Teapot_xyz.ply";
+	pTheVAOMeshManager->LoadModelIntoVAO(roofInfo, shaderProgramID);
 
 	sModelDrawInfo cube_flat_verticalInfo;
 	cube_flat_verticalInfo.meshFileName = "cube_flat_vertical.ply";			// "Utah_Teapot_xyz.ply";
@@ -122,7 +125,27 @@ void LoadModelsIntoScene( std::vector<cMeshObject*> &vec_pObjectsToDraw )
 		vec_pObjectsToDraw.push_back(pTer);
 	}
 
-
+	{
+		sMesh* pRoofTri = new sMesh();
+		//sAABB* RoofAABB = new sAABB();
+		cMeshObject* pRoof = new cMeshObject(); //-175 510 35
+		pRoof->position = glm::vec3(-175.0f, 510.0f, 35.0f);
+		pRoof->pTheShape = pRoofTri;
+		//pSpider->postRotation = glm::vec3(0.0f, glm::radians(-20.0f), 0.0f);
+		pRoof->objColour = glm::vec3(0.5f, 0.5f, 1.0f);
+		pRoof->friendlyName = "roof";
+		pRoof->bIsUpdatedByPhysics = true;
+		pRoof->bIsWireFrame = true;
+		pRoof->meshName = "roof.ply";
+		pRoof->bDontLight = true;
+		pRoof->bIsUpdatedByPhysics = true;
+		//RoofAABB->sizeXYZ = glm::vec3(800.0f, 100.0f, 800.0f);
+		pRoof->shapeType = cMeshObject::MESH;
+		//pCubeFlat3->shapeType = cMeshObject::AABB;
+		//pCube->setUniformScale(50.0f);
+		pRoof->bIsVisible = true;
+		vec_pObjectsToDraw.push_back(pRoof);
+	}
 
 
 
@@ -190,7 +213,7 @@ void LoadModelsIntoScene( std::vector<cMeshObject*> &vec_pObjectsToDraw )
 	{
 		sAABB* cubeFlatPh2 = new sAABB();
 		cMeshObject* pCubeFlat2 = new cMeshObject();//-945 160 -3770
-		pCubeFlat2->position = glm::vec3(565.0f, 160.0f, -3770.0);
+		pCubeFlat2->position = glm::vec3(565.0f, 160.0f, -3770.0f);
 		pCubeFlat2->pTheShape = cubeFlatPh2;
 		//pSpider->postRotation = glm::vec3(0.0f, glm::radians(-20.0f), 0.0f);
 		pCubeFlat2->objColour = glm::vec3(0.5f, 0.5f, 1.0f);
@@ -301,19 +324,23 @@ void LoadModelsIntoScene( std::vector<cMeshObject*> &vec_pObjectsToDraw )
 		cMeshObject* pBouncyBall = new cMeshObject();
 		pBouncyBall->objColour = glm::vec3(getRandBetween0and1<float>() * 1.0f - 0.0f,
 			getRandBetween0and1<float>() * 1.0f - 0.0f,
-			getRandBetween0and1<float>() * 1.0f - 0.0f);;
+			getRandBetween0and1<float>() * 1.0f - 0.0f);
 		float scale = 40.0f;
 		pBouncyBall->nonUniformScale = glm::vec3(scale, scale, scale);
 		pBouncyBall->friendlyName = "bouncyBall" + std::to_string(count);
 		pBouncyBall->meshName = "Sphere_320_faces_xyz_n.ply";		// "Sphere_320_faces_xyz.ply";
 		pBouncyBall->bIsWireFrame = false;
+		pBouncyBall->bRandomGenObj = true;
+	
 
 		pBouncyBall->position = glm::vec3(getRandBetween0and1<float>() * 1000.0f - 500.0f,
 			getRandBetween0and1<float>() * 250.0f + 0.5f,
 			getRandBetween0and1<float>() * 1500.0f - 600.0f);
+		pBouncyBall->initial_position = pBouncyBall->position;
 		pBouncyBall->velocity = glm::vec3(getRandBetween0and1<float>() * 200.0f - 5.0f,
 			getRandBetween0and1<float>() * 200.0f - 5.0f,
 			getRandBetween0and1<float>() * 200.0f - 5.0f);
+		pBouncyBall->initia_vel = pBouncyBall->velocity;
 		pBouncyBall->accel = glm::vec3(0.0f, -5.0f, 0.0f);
 		pBouncyBall->bIsUpdatedByPhysics = true;
 
@@ -330,6 +357,49 @@ void LoadModelsIntoScene( std::vector<cMeshObject*> &vec_pObjectsToDraw )
 		vec_pObjectsToDraw.push_back(pBouncyBall);
 	}
 
+
+
+
+	int NUMBER_OF_BALL_AABB = 10;
+	for (unsigned int count = 0; count != NUMBER_OF_BALL_AABB; count++)
+		// Updated physics object
+	{	// This sphere is the tiny little debug sphere
+		cMeshObject* pBouncyBall = new cMeshObject();
+		pBouncyBall->objColour = glm::vec3(getRandBetween0and1<float>() * 1.0f - 0.0f,
+			getRandBetween0and1<float>() * 1.0f - 0.0f,
+			getRandBetween0and1<float>() * 1.0f - 0.0f);
+		float scale = 40.0f;
+		pBouncyBall->nonUniformScale = glm::vec3(scale, scale, scale);
+		pBouncyBall->friendlyName = "bouncyBall_AABB" + std::to_string(count);
+		pBouncyBall->meshName = "Sphere_320_faces_xyz_n.ply";		// "Sphere_320_faces_xyz.ply";
+		pBouncyBall->bIsWireFrame = false;
+		pBouncyBall->bRandomGenObj = true;
+
+		if (count < 10) {
+			pBouncyBall->position = glm::vec3((count * 100.0f) - 800.0f, 100.0f, -3800.0f);
+		}
+		//pBouncyBall->position = glm::vec3(getRandBetween0and1<float>() * 1000.0f - 500.0f,
+			//getRandBetween0and1<float>() * 250.0f + 0.5f,
+			//getRandBetween0and1<float>() * -3000.0f - 3100.0f);
+		pBouncyBall->initial_position = pBouncyBall->position;
+		//pBouncyBall->velocity = glm::vec3(getRandBetween0and1<float>() * 200.0f - 5.0f,
+		//	getRandBetween0and1<float>() * 200.0f - 5.0f,
+		//	getRandBetween0and1<float>() * 200.0f - 5.0f);
+		//pBouncyBall->accel = glm::vec3(0.0f, -5.0f, 0.0f);
+		pBouncyBall->bIsUpdatedByPhysics = true;
+
+		//		pBouncyBall->radius = 5.0f;	// Be careful
+
+				// Set the type
+		pBouncyBall->pTheShape = new sSphere(scale);
+		pBouncyBall->shapeType = cMeshObject::SPHERE;
+
+		//pBouncyBall->pDebugRenderer = ::g_pDebugRenderer;
+
+
+		//pTerrain->nonUniformScale = glm::vec3(0.1f,0.1f,0.1f);
+		vec_pObjectsToDraw.push_back(pBouncyBall);
+	}
 
 
 
@@ -355,7 +425,7 @@ void LoadModelsIntoScene( std::vector<cMeshObject*> &vec_pObjectsToDraw )
 		cMeshObject* PhysicsSphere = new cMeshObject();
 		PhysicsSphere->position = glm::vec3(200.0f, 0.0f, 0.0f);
 		PhysicsSphere->objColour = glm::vec3(0.0f, 1.0f, 0.0f);
-		float scale = 30.0f;
+		float scale = 20.0f;
 		sSphere* pSp = new sSphere(scale);
 		PhysicsSphere->pTheShape = pSp;
 		PhysicsSphere->friendlyName = "Debug";
