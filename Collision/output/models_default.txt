@@ -68,6 +68,20 @@ Rotation 0 0 0
 Scale  1 1 1
 Velocity  0 0 0
 Colour  0.5 0.5 1
+Friendly_Name trigcube
+Mesh_Name cube_trig_1.ply
+Position -200 -100 -3400
+Rotation 0 0 0
+Scale  1 1 1
+Velocity  0 0 0
+Colour  0.3 0.7 0.6
+Friendly_Name trigcube
+Mesh_Name cube_trig_2.ply
+Position -100 -200 -4100
+Rotation 0 0 0
+Scale  1 1 1
+Velocity  0 0 0
+Colour  0 0.3 0.9
 Friendly_Name bouncyBall0
 Mesh_Name Sphere_320_faces_xyz_n.ply
 Position -20.127 146.752 613.111
@@ -175,86 +189,149 @@ Velocity  80.2443 127.597 98.4028
 Colour  0.12302 0.475295 0.721915
 Friendly_Name bouncyBall_AABB0
 Mesh_Name Sphere_320_faces_xyz_n.ply
-Position -800 100 -3800
+Position -600 -100 -3600
 Rotation 0 0 0
 Scale  40 40 40
 Velocity  0 0 0
 Colour  0.921384 0.949339 0.104678
 Friendly_Name bouncyBall_AABB1
 Mesh_Name Sphere_320_faces_xyz_n.ply
-Position -700 100 -3800
+Position -500 -100 -3600
 Rotation 0 0 0
 Scale  40 40 40
 Velocity  0 0 0
 Colour  0.471725 0.345988 0.549547
 Friendly_Name bouncyBall_AABB2
 Mesh_Name Sphere_320_faces_xyz_n.ply
-Position -600 100 -3800
+Position -400 -100 -3600
 Rotation 0 0 0
 Scale  40 40 40
 Velocity  0 0 0
 Colour  0.316874 0.84698 0.374981
 Friendly_Name bouncyBall_AABB3
 Mesh_Name Sphere_320_faces_xyz_n.ply
-Position -500 100 -3800
+Position -300 -100 -3600
 Rotation 0 0 0
 Scale  40 40 40
 Velocity  0 0 0
 Colour  0.982971 0.271889 0.456099
 Friendly_Name bouncyBall_AABB4
 Mesh_Name Sphere_320_faces_xyz_n.ply
-Position -400 100 -3800
+Position -200 -100 -3600
 Rotation 0 0 0
 Scale  40 40 40
 Velocity  0 0 0
 Colour  0.567278 0.739189 0.2978
 Friendly_Name bouncyBall_AABB5
 Mesh_Name Sphere_320_faces_xyz_n.ply
-Position -300 100 -3800
+Position -100 -100 -3600
 Rotation 0 0 0
 Scale  40 40 40
 Velocity  0 0 0
 Colour  0.839442 0.761315 0.19599
 Friendly_Name bouncyBall_AABB6
 Mesh_Name Sphere_320_faces_xyz_n.ply
-Position -200 100 -3800
+Position 0 -100 -3600
 Rotation 0 0 0
 Scale  40 40 40
 Velocity  0 0 0
 Colour  0.890164 0.5009 0.397656
 Friendly_Name bouncyBall_AABB7
 Mesh_Name Sphere_320_faces_xyz_n.ply
-Position -100 100 -3800
+Position 100 -100 -3600
 Rotation 0 0 0
 Scale  40 40 40
 Velocity  0 0 0
 Colour  0.572588 0.994629 0.0274667
 Friendly_Name bouncyBall_AABB8
 Mesh_Name Sphere_320_faces_xyz_n.ply
-Position 0 100 -3800
+Position 200 -100 -3600
 Rotation 0 0 0
 Scale  40 40 40
 Velocity  0 0 0
 Colour  0.194067 0.531327 0.0505081
 Friendly_Name bouncyBall_AABB9
 Mesh_Name Sphere_320_faces_xyz_n.ply
-Position 100 100 -3800
+Position 300 -100 -3600
 Rotation 0 0 0
 Scale  40 40 40
 Velocity  0 0 0
 Colour  0.657613 0.626759 0.843043
+Friendly_Name bouncyBall_AABB10
+Mesh_Name Sphere_320_faces_xyz_n.ply
+Position -600 -100 -3800
+Rotation 0 0 0
+Scale  40 40 40
+Velocity  0 0 0
+Colour  0.123325 0.842158 0.197851
+Friendly_Name bouncyBall_AABB11
+Mesh_Name Sphere_320_faces_xyz_n.ply
+Position -500 -100 -3800
+Rotation 0 0 0
+Scale  40 40 40
+Velocity  0 0 0
+Colour  0.314066 0.743126 0.109928
+Friendly_Name bouncyBall_AABB12
+Mesh_Name Sphere_320_faces_xyz_n.ply
+Position -400 -100 -3800
+Rotation 0 0 0
+Scale  40 40 40
+Velocity  0 0 0
+Colour  0.336314 0.286081 0.941069
+Friendly_Name bouncyBall_AABB13
+Mesh_Name Sphere_320_faces_xyz_n.ply
+Position -300 -100 -3800
+Rotation 0 0 0
+Scale  40 40 40
+Velocity  0 0 0
+Colour  0.83462 0.733085 0.140263
+Friendly_Name bouncyBall_AABB14
+Mesh_Name Sphere_320_faces_xyz_n.ply
+Position -200 -100 -3800
+Rotation 0 0 0
+Scale  40 40 40
+Velocity  0 0 0
+Colour  0.747215 0.600238 0.707999
+Friendly_Name bouncyBall_AABB15
+Mesh_Name Sphere_320_faces_xyz_n.ply
+Position -100 -100 -3800
+Rotation 0 0 0
+Scale  40 40 40
+Velocity  0 0 0
+Colour  0.00161748 0.144475 0.252724
+Friendly_Name bouncyBall_AABB16
+Mesh_Name Sphere_320_faces_xyz_n.ply
+Position 0 -100 -3800
+Rotation 0 0 0
+Scale  40 40 40
+Velocity  0 0 0
+Colour  0.852626 0.806238 0.0610065
+Friendly_Name bouncyBall_AABB17
+Mesh_Name Sphere_320_faces_xyz_n.ply
+Position 100 -100 -3800
+Rotation 0 0 0
+Scale  40 40 40
+Velocity  0 0 0
+Colour  0.553209 0.115604 0.210578
+Friendly_Name bouncyBall_AABB18
+Mesh_Name Sphere_320_faces_xyz_n.ply
+Position 200 -100 -3800
+Rotation 0 0 0
+Scale  40 40 40
+Velocity  0 0 0
+Colour  0.454512 0.113773 0.0142521
+Friendly_Name bouncyBall_AABB19
+Mesh_Name Sphere_320_faces_xyz_n.ply
+Position 300 -100 -3800
+Rotation 0 0 0
+Scale  40 40 40
+Velocity  0 0 0
+Colour  0.543443 0.686148 0.75222
 Friendly_Name AttenSphere
 Mesh_Name Sphere_320_faces_xyz_n.ply
 Position 150 0 0
 Rotation 0 0 0
 Scale  30 30 30
-Velocity  0 0 0
-Colour  0 1 0
-Friendly_Name Debug
-Mesh_Name Sphere_320_faces_xyz_n.ply
-Position 200 0 0
-Rotation 0 0 0
-Scale  20 20 20
 Velocity  0 0 0
 Colour  0 1 0
 Friendly_Name shootBall
@@ -263,4 +340,4 @@ Position 0 0 0
 Rotation 0 0 0
 Scale  60 60 60
 Velocity  0 0 0
-Colour  1 0.411765 0.705882
+Colour  1 0.372549 0.509804

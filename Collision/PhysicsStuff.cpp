@@ -77,7 +77,7 @@ void DoPhysicsUpdate( double fDeltaTime,
 
 			//initial_position
 
-			if (pCurMesh->bRandomGenObj && (glm::distance(pCurMesh->position, pCurMesh->initial_position) > 1000.0f))
+			if (pCurMesh->bRandomGenObj && (glm::distance(pCurMesh->position, pCurMesh->initial_position) > 1500.0f))
 			{
 				pCurMesh->position = pCurMesh->initial_position;
 				pCurMesh->velocity = glm::vec3(getRandBetween0and1<float>() * 200.0f - 5.0f,
@@ -199,15 +199,15 @@ void DoPhysicsUpdate( double fDeltaTime,
 							sSphere* sphB = (sSphere*)(pObjectA->pTheShape);
 							if (AreSpheresPenetrating(pObjectA, pObjectB))
 							{
-								if (glm::length(pObjectA->velocity) == 0.00f)
+								if (glm::length(pObjectA->velocity) < 0.10f)
 								{
-									pObjectA->velocity = pObjectB->velocity;
-									pObjectB->velocity = -pObjectB->velocity;
+									pObjectA->velocity = -pObjectB->velocity * 1.2f;
+									//pObjectB->velocity = -pObjectB->velocity;
 								}
-								else if (glm::length(pObjectB->velocity) == 0.00f)
+								else if (glm::length(pObjectB->velocity) < 0.10f)
 								{
-									pObjectB->velocity = pObjectA->velocity;
-									pObjectA->velocity = -pObjectA->velocity;
+									pObjectB->velocity = -pObjectA->velocity  * 1.2f;
+									//pObjectA->velocity = -pObjectA->velocity;
 								}
 								else 
 								{
@@ -216,7 +216,7 @@ void DoPhysicsUpdate( double fDeltaTime,
 									
 									pObjectA->velocity = AnewVel;
 									pObjectB->velocity = BnewVel;
-									
+								
 									pObjectA->objColour = pObjectB->objColour;
 
 								}
@@ -238,7 +238,6 @@ void DoPhysicsUpdate( double fDeltaTime,
 								for (unsigned int triIndex = 0; triIndex != closestPoints.size(); triIndex++)
 								{
 
-									// glm::length() seems to work here, too 
 									float curDist = glm::distance(pObjectA->position, closestPoints[triIndex].thePoint);
 
 									if (curDist < minDistance)
@@ -269,22 +268,11 @@ void DoPhysicsUpdate( double fDeltaTime,
 										);
 										normal = glm::normalize(normal);
 
-										//Calculating reflected velocity
+
 										glm::vec3 newVel = glm::reflect(pObjectA->velocity, normal);
 
 										pObjectA->velocity = newVel;
-										//if (pObjectA->friendlyName == "shootBall") {
-										//	::g_pDebugRenderer->addLine(pObjectA->position, -normal*10.0f ,
-										//		glm::vec3(1.0f, 1.0f, 0.0f),
-										//		4.0f /*show for 2 seconds*/);
-										//	//pObjectA->velocity = glm::vec3(0.0f);
-										//	std::cout << normal.x <<" " << normal.y <<" " << normal.z << std::endl;
-										//	
-										//}
-										
-										
-										//std::cout <<  normal.y << std::endl;
-										//std::cout <<  normal.z << std::endl;
+
 
 										
 									}
@@ -295,11 +283,16 @@ void DoPhysicsUpdate( double fDeltaTime,
 
 						else if ((pObjectA->shapeType == cMeshObject::SPHERE) && (pObjectB->shapeType == cMeshObject::AABB))
 						{
+							
 							if (SphereBoxCollision(pObjectA, pObjectB))
 							{
-								std::cout << "smth" << std::endl;
-								pObjectA->velocity = -pObjectA->velocity;
-							 g_pDebugRenderer->addLine(pObjectA->position, pObjectB->position, glm::vec3(1.0f, 1.0f, 0.0f), 3.0f);
+								
+									pObjectA->objColour = pObjectB->objColour;
+									pObjectA->velocity = -pObjectA->velocity;
+
+								
+								
+							 //g_pDebugRenderer->addLine(pObjectA->position, pObjectB->position, glm::vec3(1.0f, 1.0f, 0.0f), 3.0f);
 							}
 						}
 				}

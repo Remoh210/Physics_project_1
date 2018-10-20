@@ -44,6 +44,14 @@ void LoadModelTypes( cVAOMeshManager* pTheVAOMeshManager, GLuint shaderProgramID
 	cube_flat_horizontalInfo.meshFileName = "cube_flat_horizontal.ply";			// "Utah_Teapot_xyz.ply";
 	pTheVAOMeshManager->LoadModelIntoVAO(cube_flat_horizontalInfo, shaderProgramID);
 
+	sModelDrawInfo cube_trig1;
+	cube_trig1.meshFileName = "cube_trig_1.ply";			// "Utah_Teapot_xyz.ply";
+	pTheVAOMeshManager->LoadModelIntoVAO(cube_trig1, shaderProgramID);
+
+	sModelDrawInfo cube_trig2;
+	cube_trig2.meshFileName = "cube_trig_2.ply";			// "Utah_Teapot_xyz.ply";
+	pTheVAOMeshManager->LoadModelIntoVAO(cube_trig2, shaderProgramID);
+
 	sModelDrawInfo terrainInfo;
 	terrainInfo.meshFileName = "MeshLab_Fractal_Terrain_xyz_n.ply";	// "MeshLab_Fractal_Terrain_xyz.ply";
 	// Will alow me to update the vertex data in the mesh
@@ -313,6 +321,51 @@ void LoadModelsIntoScene( std::vector<cMeshObject*> &vec_pObjectsToDraw )
 		vec_pObjectsToDraw.push_back(pCubeFlat4);
 	}
 
+	//Trigger Cubes
+
+
+	{
+		sAABB* trigcube1 = new sAABB();
+		cMeshObject* pTrigCube = new cMeshObject();//-945 160 -3770
+		 pTrigCube->position = glm::vec3(-200.0f, -100.0f, -3400.0f);
+		 pTrigCube->pTheShape = trigcube1;
+		//pSpider->postRotation = glm::vec3(0.0f, glm::radians(-20.0f), 0.0f);
+		 pTrigCube->objColour = glm::vec3(0.3f, 0.7f, 0.6f);
+		 pTrigCube->friendlyName = "trigcube";
+		 pTrigCube->bIsUpdatedByPhysics = true;
+		 pTrigCube->bIsWireFrame = false;
+		 pTrigCube->meshName = "cube_trig_1.ply";
+		 pTrigCube->bDontLight = false;
+		 pTrigCube->bIsUpdatedByPhysics = true;
+		 trigcube1->sizeXYZ = glm::vec3(315.0f, 52.0f, 123.0f);
+		 pTrigCube->shapeType = cMeshObject::AABB;
+		//pCube->setUniformScale(50.0f);
+		 pTrigCube->bIsVisible = true;
+		vec_pObjectsToDraw.push_back(pTrigCube);
+	}
+
+
+	{
+		sAABB* trigcube2 = new sAABB();
+		cMeshObject* pTrigCube2 = new cMeshObject();//-945 160 -3770
+		pTrigCube2->position = glm::vec3(-100.0f, -200.0f, -4100.0f);
+		pTrigCube2->pTheShape = trigcube2;
+		//pSpider->postRotation = glm::vec3(0.0f, glm::radians(-20.0f), 0.0f);
+		pTrigCube2->objColour = glm::vec3(0.0f, 0.3f, 0.9f);
+		pTrigCube2->friendlyName = "trigcube";
+		pTrigCube2->bIsUpdatedByPhysics = true;
+		pTrigCube2->bIsWireFrame = false;
+		pTrigCube2->meshName = "cube_trig_2.ply";
+		pTrigCube2->bDontLight = false;
+		pTrigCube2->bIsUpdatedByPhysics = true;
+		trigcube2->sizeXYZ = glm::vec3(92.0f, 280.0f, 122.0f);
+		pTrigCube2->shapeType = cMeshObject::AABB;
+		//pCube->setUniformScale(50.0f);
+		pTrigCube2->bIsVisible = true;
+		vec_pObjectsToDraw.push_back(pTrigCube2);
+	}
+
+
 
 	//cMeshObject* pRogerRabbit = NULL;
 
@@ -360,7 +413,7 @@ void LoadModelsIntoScene( std::vector<cMeshObject*> &vec_pObjectsToDraw )
 
 
 
-	int NUMBER_OF_BALL_AABB = 10;
+	int NUMBER_OF_BALL_AABB = 20;
 	for (unsigned int count = 0; count != NUMBER_OF_BALL_AABB; count++)
 		// Updated physics object
 	{	// This sphere is the tiny little debug sphere
@@ -376,7 +429,10 @@ void LoadModelsIntoScene( std::vector<cMeshObject*> &vec_pObjectsToDraw )
 		pBouncyBall->bRandomGenObj = true;
 
 		if (count < 10) {
-			pBouncyBall->position = glm::vec3((count * 100.0f) - 800.0f, 100.0f, -3800.0f);
+			pBouncyBall->position = glm::vec3((count * 100.0f) - 600.0f, -100.0f, -3600.0f);
+		}
+		else if (count >= 10) {
+			pBouncyBall->position = glm::vec3((count * 100.0f) - 1600.0f, -100.0f, -3800.0f);
 		}
 		//pBouncyBall->position = glm::vec3(getRandBetween0and1<float>() * 1000.0f - 500.0f,
 			//getRandBetween0and1<float>() * 250.0f + 0.5f,
@@ -420,36 +476,19 @@ void LoadModelsIntoScene( std::vector<cMeshObject*> &vec_pObjectsToDraw )
 
 
 
-	{	// This sphere is the tiny little debug sphere
-		
-		cMeshObject* PhysicsSphere = new cMeshObject();
-		PhysicsSphere->position = glm::vec3(200.0f, 0.0f, 0.0f);
-		PhysicsSphere->objColour = glm::vec3(0.0f, 1.0f, 0.0f);
-		float scale = 20.0f;
-		sSphere* pSp = new sSphere(scale);
-		PhysicsSphere->pTheShape = pSp;
-		PhysicsSphere->friendlyName = "Debug";
-		PhysicsSphere->nonUniformScale = glm::vec3(scale, scale, scale);
-		PhysicsSphere->meshName = "Sphere_320_faces_xyz_n.ply";
-		PhysicsSphere->shapeType = cMeshObject::SPHERE;
-		PhysicsSphere->bIsWireFrame = true;
-		PhysicsSphere->bIsVisible = true;
-		PhysicsSphere->bIsUpdatedByPhysics = true;
-		PhysicsSphere->pDebugRenderer = ::g_pDebugRenderer;
 
-		vec_pObjectsToDraw.push_back(PhysicsSphere);
-	}
 	// ENDOF: Updated physics object
 
 
 	{	// This sphere is the tiny little debug sphere
 		cMeshObject* pShootBall = new cMeshObject();
-		pShootBall->objColour = glm::vec3(1.0f, 105.0f / 255.0f, 180.0f / 255.0f);
+		pShootBall->objColour = glm::vec3(1.0f, 95.0f / 255.0f, 130.0f / 255.0f);
 		float scale = 60.0f;
 		pShootBall->friendlyName = "shootBall";
 		pShootBall->nonUniformScale = glm::vec3(scale, scale, scale);
 		pShootBall->meshName = "Sphere_320_faces_xyz_n.ply";
 		pShootBall->bIsWireFrame = false;
+		pShootBall->bIsUpdatedByPhysics = false;
 
 		//pShootBall->position = glm::vec3(getRandBetween0and1<float>() * 299.0f - 99.0f,
 		//	getRandBetween0and1<float>() * 199.0f + 0.5f,
@@ -460,6 +499,8 @@ void LoadModelsIntoScene( std::vector<cMeshObject*> &vec_pObjectsToDraw )
 
 		pShootBall->pTheShape = new sSphere(scale);
 		pShootBall->shapeType = cMeshObject::SPHERE;
+		pShootBall->bIsVisible = false;
+
 
 		//pShootBall->pDebugRenderer = ::g_pDebugRenderer;
 

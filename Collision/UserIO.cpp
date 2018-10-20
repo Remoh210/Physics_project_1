@@ -35,11 +35,7 @@ void key_callback( GLFWwindow* window,
 	}
 
 	//SAVE MODELS
-	if (key == GLFW_KEY_G && action == GLFW_PRESS)
-	{
-		saveModelInfo("Models.txt", vec_pObjectsToDraw);
-		saveLightInfo("lights.txt", LightManager->vecLights);
-	}
+
 
 	//LOAD MODELS
 	if (key == GLFW_KEY_H && action == GLFW_PRESS)
@@ -52,6 +48,12 @@ void key_callback( GLFWwindow* window,
 	{
 		loadModels("models_default.txt", vec_pObjectsToDraw);
 		loadLights("ligths_default.txt", LightManager->vecLights);
+	}
+
+	if (key == GLFW_KEY_G && action == GLFW_PRESS)
+	{
+		saveModelInfo("Models.txt", vec_pObjectsToDraw);
+		saveLightInfo("lights.txt", LightManager->vecLights);
 	}
 
 	if (glfwGetKey(window, GLFW_KEY_L))
@@ -129,7 +131,9 @@ void key_callback( GLFWwindow* window,
 	{
 		cMeshObject* shootSphere = findObjectByFriendlyName("shootBall");
 		shootSphere->position = g_CameraEye + glm::vec3(0.0f, 0.0f, 40.0f);
-		shootSphere->velocity = Front * 500.0f;
+		shootSphere->velocity = Front * 600.0f;
+		shootSphere->bIsUpdatedByPhysics = true;
+		shootSphere->bIsVisible = true;
 	}
 
 	

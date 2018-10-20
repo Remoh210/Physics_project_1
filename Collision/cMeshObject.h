@@ -89,7 +89,7 @@ public:
 	glm::vec3 initial_position;
 	glm::vec3 initia_vel;
 	bool bRandomGenObj;
-	bool hasCollided;
+	bool bIsTrigger;
 	float mass;
 	float inverseMass;
 
