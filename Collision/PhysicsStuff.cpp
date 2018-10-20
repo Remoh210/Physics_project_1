@@ -192,38 +192,36 @@ void DoPhysicsUpdate( double fDeltaTime,
 						
 						if ( (pObjectA->shapeType == cMeshObject::SPHERE) && (pObjectB->shapeType == cMeshObject::SPHERE) )
 						{
+
+							
+						
 							sSphere* sphA = (sSphere*)(pObjectA->pTheShape);
 							sSphere* sphB = (sSphere*)(pObjectA->pTheShape);
 							if (AreSpheresPenetrating(pObjectA, pObjectB))
 							{
-
-								if (glm::length(pObjectA->velocity) < 0.01f)
+								if (glm::length(pObjectA->velocity) == 0.00f)
 								{
 									pObjectA->velocity = pObjectB->velocity;
 									pObjectB->velocity = -pObjectB->velocity;
 								}
-								else if (glm::length(pObjectB->velocity) < 0.01f)
+								else if (glm::length(pObjectB->velocity) == 0.00f)
 								{
 									pObjectB->velocity = pObjectA->velocity;
 									pObjectA->velocity = -pObjectA->velocity;
 								}
-								else if(glm::distance(pObjectA->position, pObjectB->position) + (sphA->radius + sphB->radius) > 20.0f)
+								else 
 								{
-									//glm::vec3 AnewVel = glm::reflect(pObjectA->velocity, glm::normalize(pObjectB->velocity));
-									//glm::vec3 BnewVel = glm::reflect(pObjectB->velocity, glm::normalize(pObjectA->velocity));
+									glm::vec3 AnewVel = glm::reflect(pObjectA->velocity, glm::normalize(pObjectB->velocity));
+									glm::vec3 BnewVel = glm::reflect(pObjectB->velocity, glm::normalize(pObjectA->velocity));
 									
-									
-									//pObjectA->velocity = AnewVel;
-									//pObjectB->velocity = BnewVel;
+									pObjectA->velocity = AnewVel;
+									pObjectB->velocity = BnewVel;
 									
 									pObjectA->objColour = pObjectB->objColour;
 
-
-									//pObjectB->objColour = pObjectA->objColour;
-									//pObjectA->velocity += pObjectB->velocity * 0.5f;
-									//pObjectB->velocity -= pObjectA->velocity * 0.5f;
 								}
 							}
+							
 						}
 
 						else if ((pObjectA->shapeType == cMeshObject::SPHERE) && (pObjectB->shapeType == cMeshObject::MESH))

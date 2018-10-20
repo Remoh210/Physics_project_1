@@ -20,6 +20,7 @@ cMeshObject::cMeshObject()
 
 	this->bDontLight = false;
 	this->initial_position = glm::vec3(0.0f);
+	this->hasCollided = false;
 	this->bRandomGenObj = false;
 	this->velocity = glm::vec3(0.0f);
 	this->accel = glm::vec3(0.0f);
