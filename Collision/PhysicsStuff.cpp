@@ -10,9 +10,9 @@ typedef glm::vec3 Vector;
 
 const float GROUND_PLANE_Y = -3.0f;			// Lowest the objects can go
 const float ROOF_Y = 350.0f;
-const float LIMIT_POS_X =  300.0f;			// Lowest the objects can go
+const float LIMIT_POS_X = 300.0f;			// Lowest the objects can go
 const float LIMIT_NEG_X = -100.0f;			// Lowest the objects can go
-const float LIMIT_POS_Z =  300.0f;			// Lowest the objects can go
+const float LIMIT_POS_Z = 300.0f;			// Lowest the objects can go
 const float LIMIT_NEG_Z = -300.0f;			// Lowest the objects can go
 
 
@@ -35,44 +35,44 @@ const float LIMIT_NEG_Z = -300.0f;			// Lowest the objects can go
 //	glm::vec3 halfSideLengths;
 //}
 bool SphereTraingleTest(cMeshObject* pSphere, cMeshObject* pTriangle);
-bool AreSpheresPenetrating( cMeshObject* pA, cMeshObject* pB );
+bool AreSpheresPenetrating(cMeshObject* pA, cMeshObject* pB);
 bool SphereBoxCollision(cMeshObject* sphere, cMeshObject* box);
 bool TestSphereAABB(cMeshObject* s, cMeshObject* b);
-bool TestForCollision( cMeshObject* pA, cMeshObject* pB );
+bool TestForCollision(cMeshObject* pA, cMeshObject* pB);
 
 
 // Called every frame
-void DoPhysicsUpdate( double fDeltaTime, 
-					  std::vector< cMeshObject* > &vec_pObjectsToDraw )
+void DoPhysicsUpdate(double fDeltaTime,
+	std::vector< cMeshObject* > &vec_pObjectsToDraw)
 {
 	float deltaTime = static_cast<float>(fDeltaTime);
 
 	// Make sure it's not tooooooo big
 	const float LARGEST_DELTATIME = 1.20f;			// 10 ms = 10 Hz
 
-	if ( deltaTime > LARGEST_DELTATIME )
+	if (deltaTime > LARGEST_DELTATIME)
 	{
 		deltaTime = LARGEST_DELTATIME;
 	}//if ( deltaTime
 
 	// Loop through all objects
-	for ( std::vector< cMeshObject* >::iterator itMesh = vec_pObjectsToDraw.begin();
-		  itMesh != vec_pObjectsToDraw.end(); itMesh++ )
+	for (std::vector< cMeshObject* >::iterator itMesh = vec_pObjectsToDraw.begin();
+		itMesh != vec_pObjectsToDraw.end(); itMesh++)
 	{
-		cMeshObject* pCurMesh = *itMesh;		 
+		cMeshObject* pCurMesh = *itMesh;
 
-		if ( pCurMesh->bIsUpdatedByPhysics )
+		if (pCurMesh->bIsUpdatedByPhysics)
 		{
 
 
-			pCurMesh->velocity.x = pCurMesh->velocity.x + ( pCurMesh->accel.x * deltaTime );
-			pCurMesh->velocity.y = pCurMesh->velocity.y + ( pCurMesh->accel.y * deltaTime );
-			pCurMesh->velocity.z = pCurMesh->velocity.z + ( pCurMesh->accel.z * deltaTime );
+			pCurMesh->velocity.x = pCurMesh->velocity.x + (pCurMesh->accel.x * deltaTime);
+			pCurMesh->velocity.y = pCurMesh->velocity.y + (pCurMesh->accel.y * deltaTime);
+			pCurMesh->velocity.z = pCurMesh->velocity.z + (pCurMesh->accel.z * deltaTime);
 
-			pCurMesh->position.x = pCurMesh->position.x + ( pCurMesh->velocity.x * deltaTime );
-			pCurMesh->position.y = pCurMesh->position.y + ( pCurMesh->velocity.y * deltaTime );
-			pCurMesh->position.z = pCurMesh->position.z + ( pCurMesh->velocity.z * deltaTime );
-			
+			pCurMesh->position.x = pCurMesh->position.x + (pCurMesh->velocity.x * deltaTime);
+			pCurMesh->position.y = pCurMesh->position.y + (pCurMesh->velocity.y * deltaTime);
+			pCurMesh->position.z = pCurMesh->position.z + (pCurMesh->velocity.z * deltaTime);
+
 
 
 			//initial_position
@@ -169,208 +169,207 @@ void DoPhysicsUpdate( double fDeltaTime,
 
 
 	// Test for collisions
-	for ( std::vector< cMeshObject* >::iterator itObjectA = vec_pObjectsToDraw.begin();
-		itObjectA != vec_pObjectsToDraw.end(); itObjectA++ )
+	for (std::vector< cMeshObject* >::iterator itObjectA = vec_pObjectsToDraw.begin();
+		itObjectA != vec_pObjectsToDraw.end(); itObjectA++)
 	{
 		// Go through all the other objects and test with this one...
 
-		for ( std::vector< cMeshObject* >::iterator itObjectB = vec_pObjectsToDraw.begin();
-				itObjectB != vec_pObjectsToDraw.end(); itObjectB++ )
+		for (std::vector< cMeshObject* >::iterator itObjectB = vec_pObjectsToDraw.begin();
+			itObjectB != vec_pObjectsToDraw.end(); itObjectB++)
 		{
 
 			cMeshObject* pObjectA = *itObjectA;
 			cMeshObject* pObjectB = *itObjectB;
 			// Same? 
 
-			if ( pObjectA != pObjectB )
+			if (pObjectA != pObjectB)
 			{
 				// Do BOTH of these have a "shape" defined
 				// Could also test for the enum (which is WAY better)
-				if ( ( pObjectA->pTheShape != NULL  ) && 
-				     ( pObjectB->pTheShape != NULL ) )
+				if ((pObjectA->pTheShape != NULL) &&
+					(pObjectB->pTheShape != NULL))
 				{
-						
-						if ( (pObjectA->shapeType == cMeshObject::SPHERE) && (pObjectB->shapeType == cMeshObject::SPHERE) )
+
+					if ((pObjectA->shapeType == cMeshObject::SPHERE) && (pObjectB->shapeType == cMeshObject::SPHERE))
+					{
+
+
+						sSphere* sphA = (sSphere*)(pObjectA->pTheShape);
+						sSphere* sphB = (sSphere*)(pObjectA->pTheShape);
+						if (AreSpheresPenetrating(pObjectA, pObjectB))
 						{
-
-							
-						
-							sSphere* sphA = (sSphere*)(pObjectA->pTheShape);
-							sSphere* sphB = (sSphere*)(pObjectA->pTheShape);
-							if (AreSpheresPenetrating(pObjectA, pObjectB))
+							if (glm::length(pObjectA->velocity) < 0.10f)
 							{
-								if (glm::length(pObjectA->velocity) < 0.10f)
-								{
-									pObjectA->velocity = -pObjectB->velocity * 1.2f;
-									//pObjectB->velocity = -pObjectB->velocity;
-								}
-								else if (glm::length(pObjectB->velocity) < 0.10f)
-								{
-									pObjectB->velocity = -pObjectA->velocity  * 1.2f;
-									//pObjectA->velocity = -pObjectA->velocity;
-								}
-								else 
-								{
-									glm::vec3 AnewVel = glm::reflect(pObjectA->velocity, glm::normalize(pObjectB->velocity));
-									glm::vec3 BnewVel = glm::reflect(pObjectB->velocity, glm::normalize(pObjectA->velocity));
-									
-									pObjectA->velocity = AnewVel;
-									pObjectB->velocity = BnewVel;
-								
-									pObjectA->objColour = pObjectB->objColour;
-
-								}
+								pObjectA->velocity = -pObjectB->velocity * 1.2f;
+								//pObjectB->velocity = -pObjectB->velocity;
 							}
-							
-						}
-
-						else if ((pObjectA->shapeType == cMeshObject::SPHERE) && (pObjectB->shapeType == cMeshObject::MESH))
-						{
-							sModelDrawInfo modelInfo;
-							std::vector<sClosestPointData> closestPoints;
-							g_pTheVAOMeshManager->FindDrawInfoByModelName(pObjectB->meshName, modelInfo);
-							CalculateClosestPointsOnMesh(modelInfo, pObjectA->position, closestPoints, pObjectB->position);
-
-							if (closestPoints.size() != 0)
+							else if (glm::length(pObjectB->velocity) < 0.10f)
 							{
-								float minDistance = glm::distance(pObjectA->position, closestPoints[0].thePoint);
-								unsigned int minTriangleIndex = closestPoints[0].triangleIndex;
-								for (unsigned int triIndex = 0; triIndex != closestPoints.size(); triIndex++)
-								{
-
-									float curDist = glm::distance(pObjectA->position, closestPoints[triIndex].thePoint);
-
-									if (curDist < minDistance)
-									{
-										minDistance = curDist;
-										minTriangleIndex = closestPoints[triIndex].triangleIndex;
-									}
-									sSphere* Sphere = (sSphere*)(pObjectA->pTheShape);
-									if (minDistance < Sphere->radius) {
-
-
-										glm::vec3 vert1 = glm::vec3(modelInfo.pVerticesFromFile[modelInfo.pTriangles[minTriangleIndex].vertex_index_1].x,
-											modelInfo.pVerticesFromFile[modelInfo.pTriangles[minTriangleIndex].vertex_index_1].y,
-											modelInfo.pVerticesFromFile[modelInfo.pTriangles[minTriangleIndex].vertex_index_1].z) + pObjectB->position;
-										glm::vec3 vert2 = glm::vec3(
-											 modelInfo.pVerticesFromFile[modelInfo.pTriangles[minTriangleIndex].vertex_index_2].x,
-											 modelInfo.pVerticesFromFile[modelInfo.pTriangles[minTriangleIndex].vertex_index_2].y,
-											 modelInfo.pVerticesFromFile[modelInfo.pTriangles[minTriangleIndex].vertex_index_2].z) + pObjectB->position;
-										glm::vec3 vert3 = glm::vec3(
-											 modelInfo.pVerticesFromFile[modelInfo.pTriangles[minTriangleIndex].vertex_index_3].x,
-											 modelInfo.pVerticesFromFile[modelInfo.pTriangles[minTriangleIndex].vertex_index_3].y,
-											 modelInfo.pVerticesFromFile[modelInfo.pTriangles[minTriangleIndex].vertex_index_3].z) + pObjectB->position;
-
-
-										glm::vec3 normal = glm::cross(
-											vert2 - vert1,
-											vert3 - vert1
-										);
-										normal = glm::normalize(normal);
-
-
-										glm::vec3 newVel = glm::reflect(pObjectA->velocity, normal);
-
-										pObjectA->velocity = newVel;
-
-
-										
-									}
-								}
-
+								pObjectB->velocity = -pObjectA->velocity  * 1.2f;
+								//pObjectA->velocity = -pObjectA->velocity;
 							}
-						}//else if 
-
-						else if ((pObjectA->shapeType == cMeshObject::SPHERE) && (pObjectB->shapeType == cMeshObject::AABB))
-						{
-							
-							if (SphereBoxCollision(pObjectA, pObjectB))
+							else
 							{
-								
-									pObjectA->objColour = pObjectB->objColour;
-									pObjectA->velocity = -pObjectA->velocity;
+								glm::vec3 AnewVel = glm::reflect(pObjectA->velocity, glm::normalize(pObjectB->velocity));
+								glm::vec3 BnewVel = glm::reflect(pObjectB->velocity, glm::normalize(pObjectA->velocity));
 
-								
-								
-							 //g_pDebugRenderer->addLine(pObjectA->position, pObjectB->position, glm::vec3(1.0f, 1.0f, 0.0f), 3.0f);
+								pObjectA->velocity = AnewVel;
+								pObjectB->velocity = BnewVel;
+
+								pObjectA->objColour = pObjectB->objColour;
+
 							}
 						}
+
+					}
+
+					else if ((pObjectA->shapeType == cMeshObject::SPHERE) && (pObjectB->shapeType == cMeshObject::MESH))
+					{
+						sModelDrawInfo modelInfo;
+						std::vector<sClosestPointData> closestPoints;
+						g_pTheVAOMeshManager->FindDrawInfoByModelName(pObjectB->meshName, modelInfo);
+						CalculateClosestPointsOnMesh(modelInfo, pObjectA->position, closestPoints, pObjectB->position);
+
+						if (closestPoints.size() != 0)
+						{
+							float minDistance = glm::distance(pObjectA->position, closestPoints[0].thePoint);
+							unsigned int minTriangleIndex = closestPoints[0].triangleIndex;
+							for (unsigned int triIndex = 0; triIndex != closestPoints.size(); triIndex++)
+							{
+
+								float curDist = glm::distance(pObjectA->position, closestPoints[triIndex].thePoint);
+
+								if (curDist < minDistance)
+								{
+									minDistance = curDist;
+									minTriangleIndex = closestPoints[triIndex].triangleIndex;
+								}
+								sSphere* Sphere = (sSphere*)(pObjectA->pTheShape);
+								if (minDistance < Sphere->radius) {
+
+
+									glm::vec3 vert1 = glm::vec3(modelInfo.pVerticesFromFile[modelInfo.pTriangles[minTriangleIndex].vertex_index_1].x,
+										modelInfo.pVerticesFromFile[modelInfo.pTriangles[minTriangleIndex].vertex_index_1].y,
+										modelInfo.pVerticesFromFile[modelInfo.pTriangles[minTriangleIndex].vertex_index_1].z) + pObjectB->position;
+									glm::vec3 vert2 = glm::vec3(
+										modelInfo.pVerticesFromFile[modelInfo.pTriangles[minTriangleIndex].vertex_index_2].x,
+										modelInfo.pVerticesFromFile[modelInfo.pTriangles[minTriangleIndex].vertex_index_2].y,
+										modelInfo.pVerticesFromFile[modelInfo.pTriangles[minTriangleIndex].vertex_index_2].z) + pObjectB->position;
+									glm::vec3 vert3 = glm::vec3(
+										modelInfo.pVerticesFromFile[modelInfo.pTriangles[minTriangleIndex].vertex_index_3].x,
+										modelInfo.pVerticesFromFile[modelInfo.pTriangles[minTriangleIndex].vertex_index_3].y,
+										modelInfo.pVerticesFromFile[modelInfo.pTriangles[minTriangleIndex].vertex_index_3].z) + pObjectB->position;
+
+
+									glm::vec3 normal = glm::cross(
+										vert2 - vert1,
+										vert3 - vert1
+									);
+									normal = glm::normalize(normal);
+
+
+									glm::vec3 newVel = glm::reflect(pObjectA->velocity, normal);
+
+									pObjectA->velocity = newVel;
+
+
+
+								}
+							}
+
+						}
+					}//else if 
+
+					else if ((pObjectA->shapeType == cMeshObject::SPHERE) && (pObjectB->shapeType == cMeshObject::AABB))
+					{
+
+						if (SphereBoxCollision(pObjectA, pObjectB))
+						{
+
+							pObjectA->objColour = pObjectB->objColour;
+							pObjectA->velocity = -pObjectA->velocity;
+
+
+
+							//g_pDebugRenderer->addLine(pObjectA->position, pObjectB->position, glm::vec3(1.0f, 1.0f, 0.0f), 3.0f);
+						}
+					}
 				}
 			}//if(pObjectA != pObjectB)
 		}// inner loop
 	}// outer loop
 
-	
+
 	return;
 }
 
 
 Point ClosestPtPointTriangle(Point p, Point a, Point b, Point c)
 {
-    Vector ab = b - a;
-    Vector ac = c - a;
-    Vector bc = c - b;
+	Vector ab = b - a;
+	Vector ac = c - a;
+	Vector bc = c - b;
 
-    // Compute parametric position s for projection P' of P on AB,
-    // P' = A + s*AB, s = snom/(snom+sdenom)
+	// Compute parametric position s for projection P' of P on AB,
+	// P' = A + s*AB, s = snom/(snom+sdenom)
  //   float snom = Dot(p - a, ab), sdenom = Dot(p - b, a - b);
-	float snom = glm::dot( p - a, ab );
+	float snom = glm::dot(p - a, ab);
 	float sdenom = glm::dot(p - b, a - b);
 
-    // Compute parametric position t for projection P' of P on AC,
-    // P' = A + t*AC, s = tnom/(tnom+tdenom)
+	// Compute parametric position t for projection P' of P on AC,
+	// P' = A + t*AC, s = tnom/(tnom+tdenom)
 //    float tnom = Dot(p - a, ac), tdenom = Dot(p - c, a - c);
-    float tnom = glm::dot(p - a, ac);
+	float tnom = glm::dot(p - a, ac);
 	float tdenom = glm::dot(p - c, a - c);
 
-    if (snom <= 0.0f && tnom <= 0.0f) return a; // Vertex region early out
+	if (snom <= 0.0f && tnom <= 0.0f) return a; // Vertex region early out
 
-    // Compute parametric position u for projection P' of P on BC,
-    // P' = B + u*BC, u = unom/(unom+udenom)
+	// Compute parametric position u for projection P' of P on BC,
+	// P' = B + u*BC, u = unom/(unom+udenom)
 //    float unom = Dot(p - b, bc), udenom = Dot(p - c, b - c);
-    float unom = glm::dot(p - b, bc);
+	float unom = glm::dot(p - b, bc);
 	float udenom = glm::dot(p - c, b - c);
 
-    if (sdenom <= 0.0f && unom <= 0.0f) return b; // Vertex region early out
-    if (tdenom <= 0.0f && udenom <= 0.0f) return c; // Vertex region early out
+	if (sdenom <= 0.0f && unom <= 0.0f) return b; // Vertex region early out
+	if (tdenom <= 0.0f && udenom <= 0.0f) return c; // Vertex region early out
 
 
-    // P is outside (or on) AB if the triple scalar product [N PA PB] <= 0
+	// P is outside (or on) AB if the triple scalar product [N PA PB] <= 0
 //    Vector n = Cross(b - a, c - a);
-	Vector n = glm::cross( b - a, c - a);
-//    float vc = Dot(n, Cross(a - p, b - p));
+	Vector n = glm::cross(b - a, c - a);
+	//    float vc = Dot(n, Cross(a - p, b - p));
 
-    float vc = glm::dot(n, glm::cross(a - p, b - p));
+	float vc = glm::dot(n, glm::cross(a - p, b - p));
 
-    // If P outside AB and within feature region of AB,
-    // return projection of P onto AB
-    if (vc <= 0.0f && snom >= 0.0f && sdenom >= 0.0f)
-        return a + snom / (snom + sdenom) * ab;
+	// If P outside AB and within feature region of AB,
+	// return projection of P onto AB
+	if (vc <= 0.0f && snom >= 0.0f && sdenom >= 0.0f)
+		return a + snom / (snom + sdenom) * ab;
 
-    // P is outside (or on) BC if the triple scalar product [N PB PC] <= 0
+	// P is outside (or on) BC if the triple scalar product [N PB PC] <= 0
 //    float va = Dot(n, Cross(b - p, c - p));
-    float va = glm::dot(n, glm::cross(b - p, c - p));
+	float va = glm::dot(n, glm::cross(b - p, c - p));
 
 
-    // If P outside BC and within feature region of BC,
-    // return projection of P onto BC
-    if (va <= 0.0f && unom >= 0.0f && udenom >= 0.0f)
-        return b + unom / (unom + udenom) * bc;
+	// If P outside BC and within feature region of BC,
+	// return projection of P onto BC
+	if (va <= 0.0f && unom >= 0.0f && udenom >= 0.0f)
+		return b + unom / (unom + udenom) * bc;
 
-    // P is outside (or on) CA if the triple scalar product [N PC PA] <= 0
+	// P is outside (or on) CA if the triple scalar product [N PC PA] <= 0
 //    float vb = Dot(n, Cross(c - p, a - p));
-    float vb = glm::dot(n, glm::cross(c - p, a - p));
+	float vb = glm::dot(n, glm::cross(c - p, a - p));
 
-   // If P outside CA and within feature region of CA,
-    // return projection of P onto CA
-    if (vb <= 0.0f && tnom >= 0.0f && tdenom >= 0.0f)
-        return a + tnom / (tnom + tdenom) * ac;
+	// If P outside CA and within feature region of CA,
+	 // return projection of P onto CA
+	if (vb <= 0.0f && tnom >= 0.0f && tdenom >= 0.0f)
+		return a + tnom / (tnom + tdenom) * ac;
 
-    // P must project inside face region. Compute Q using barycentric coordinates
-    float u = va / (va + vb + vc);
-    float v = vb / (va + vb + vc);
-    float w = 1.0f - u - v; // = vc / (va + vb + vc)
-    return u * a + v * b + w * c;
+	// P must project inside face region. Compute Q using barycentric coordinates
+	float u = va / (va + vb + vc);
+	float v = vb / (va + vb + vc);
+	float w = 1.0f - u - v; // = vc / (va + vb + vc)
+	return u * a + v * b + w * c;
 }
 
 // Pass in the terrain
@@ -380,12 +379,12 @@ Point ClosestPtPointTriangle(Point p, Point a, Point b, Point c)
 
 void CalculateClosestPointsOnMesh(sModelDrawInfo theMeshDrawInfo,
 	glm::vec3 pointToTest,
-	std::vector<sClosestPointData> &vecPoints, glm::vec3 objPos )
+	std::vector<sClosestPointData> &vecPoints, glm::vec3 objPos)
 {
 	vecPoints.clear();
 
 	// For each triangle in the mesh information...
-	for ( unsigned int triIndex = 0; triIndex != theMeshDrawInfo.numberOfTriangles; triIndex++ )
+	for (unsigned int triIndex = 0; triIndex != theMeshDrawInfo.numberOfTriangles; triIndex++)
 	{
 		sPlyTriangle CurTri = theMeshDrawInfo.pTriangles[triIndex];
 
@@ -399,30 +398,30 @@ void CalculateClosestPointsOnMesh(sModelDrawInfo theMeshDrawInfo,
 		sPlyVertex corner_3 = theMeshDrawInfo.pVerticesFromFile[CurTri.vertex_index_3];
 
 		// Convert this to glm::vec3
-		glm::vec3 vert_1 = glm::vec3( corner_1.x, corner_1.y, corner_1.z ) + objPos;
-		glm::vec3 vert_2 = glm::vec3( corner_2.x, corner_2.y, corner_2.z ) + objPos;
-		glm::vec3 vert_3 = glm::vec3( corner_3.x, corner_3.y, corner_3.z ) + objPos;
+		glm::vec3 vert_1 = glm::vec3(corner_1.x, corner_1.y, corner_1.z) + objPos;
+		glm::vec3 vert_2 = glm::vec3(corner_2.x, corner_2.y, corner_2.z) + objPos;
+		glm::vec3 vert_3 = glm::vec3(corner_3.x, corner_3.y, corner_3.z) + objPos;
 
 		closestTri.thePoint = ClosestPtPointTriangle(pointToTest, vert_1, vert_2, vert_3);
 
-		vecPoints.push_back( closestTri );
+		vecPoints.push_back(closestTri);
 
-	// ...and push back the restulting point
+		// ...and push back the restulting point
 	}//for ( unsigned int triIndex = 0
-		  
-		  
+
+
 
 
 }
 
 
 
-bool AreSpheresPenetrating( cMeshObject* pA, cMeshObject* pB )
+bool AreSpheresPenetrating(cMeshObject* pA, cMeshObject* pB)
 {
 	sSphere* pSphereA = (sSphere*)(pA->pTheShape);
 	sSphere* pSphereB = (sSphere*)(pB->pTheShape);
 
-	if ( glm::distance( pA->position, pB->position ) < ( pSphereA->radius + pSphereB->radius ) )
+	if (glm::distance(pA->position, pB->position) < (pSphereA->radius + pSphereB->radius))
 	{
 		// Yup
 		return true;
@@ -434,7 +433,7 @@ float SqDistPointAABB(Point p, cMeshObject* obj)
 {
 	sAABB* pAABB = (sAABB*)(obj->pTheShape);
 
-		float sqDist = 0.0f;
+	float sqDist = 0.0f;
 	for (int i = 0; i < 3; i++) {
 		// for each axis count any excess distance outside box extents
 		float v = p[i];
@@ -458,16 +457,16 @@ bool TestSphereAABB(cMeshObject* s, cMeshObject* b)
 	return sqDist <= sphere->radius * sphere->radius;
 }
 
-bool SphereTraingleTest( cMeshObject* pSphere, cMeshObject* pTriangle )
+bool SphereTraingleTest(cMeshObject* pSphere, cMeshObject* pTriangle)
 {
 	sSphere* pSphereA = (sSphere*)(pSphere->pTheShape);
 	sTriangle* pTri = (sTriangle*)(pTriangle->pTheShape);
 
-	glm::vec3 closestPointToTri = ClosestPtPointTriangle( pSphere->position, 
-														  pTri->v[0], pTri->v[1], pTri->v[2] );
+	glm::vec3 closestPointToTri = ClosestPtPointTriangle(pSphere->position,
+		pTri->v[0], pTri->v[1], pTri->v[2]);
 
 	// is this point LESS THAN the radius of the sphere? 
-	if ( glm::distance( closestPointToTri, pSphere->position ) <= pSphereA->radius )
+	if (glm::distance(closestPointToTri, pSphere->position) <= pSphereA->radius)
 	{
 		return true;
 	}
@@ -475,21 +474,21 @@ bool SphereTraingleTest( cMeshObject* pSphere, cMeshObject* pTriangle )
 	return false;
 }
 
-bool TestForCollision( cMeshObject* pA, cMeshObject* pB )
+bool TestForCollision(cMeshObject* pA, cMeshObject* pB)
 {
-	if ( pA->pTheShape == NULL ) {	return false; /*print error?*/ }
-	if ( pB->pTheShape == NULL ) {	return false; /*print error?*/ }
+	if (pA->pTheShape == NULL) { return false; /*print error?*/ }
+	if (pB->pTheShape == NULL) { return false; /*print error?*/ }
 
 	// Sphere - sphere
-	if ( (pA->shapeType == cMeshObject::SPHERE) && 
-		 (pB->shapeType == cMeshObject::SPHERE ) )
+	if ((pA->shapeType == cMeshObject::SPHERE) &&
+		(pB->shapeType == cMeshObject::SPHERE))
 	{
-		return AreSpheresPenetrating( pA, pB );
+		return AreSpheresPenetrating(pA, pB);
 	}
-	else if ( (pA->shapeType == cMeshObject::SPHERE ) && 
-			  (pB->shapeType == cMeshObject::TRIANGLE ) )
+	else if ((pA->shapeType == cMeshObject::SPHERE) &&
+		(pB->shapeType == cMeshObject::TRIANGLE))
 	{
-		return SphereTraingleTest( pA, pB );
+		return SphereTraingleTest(pA, pB);
 	}
 	//else
 
@@ -500,7 +499,7 @@ bool TestForCollision( cMeshObject* pA, cMeshObject* pB )
 
 
 bool SphereBoxCollision(cMeshObject* sphere, cMeshObject* box)
-{	
+{
 	sSphere* sSp = (sSphere*)(sphere->pTheShape);
 	sAABB* sBox = (sAABB*)(box->pTheShape);
 
@@ -542,3 +541,8 @@ bool SphereBoxCollision(cMeshObject* sphere, cMeshObject* box)
 
 	return (distance_sq < (sSp->radius * sSp->radius));
 }
+
+
+
+
+
